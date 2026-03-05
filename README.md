@@ -89,6 +89,13 @@ SLI = (summ_2xx_requests + summ_3xx_requests) / (summ_all_requests)
     - Zabbix
     - VictoriaMetrics
     - Nagios
+
+Ответ: 
+
+   Pull: Prometheus, VictoriaMetrics, Nagios (классический pull через плагины);
+   Push: TICK-стек (Telegraf — агент push'ит в InfluxDB);
+   Гибридные: Zabbix (агенты по умолчанию push'ят, но есть активные checks — pull). VictoriaMetrics также поддерживает push через совместимый API.
+
 #
 7. Склонируйте себе [репозиторий](https://github.com/influxdata/sandbox/tree/master) и запустите TICK-стэк, 
 используя технологии docker и docker-compose.
@@ -97,6 +104,15 @@ SLI = (summ_2xx_requests + summ_3xx_requests) / (summ_all_requests)
 
 P.S.: если при запуске некоторые контейнеры будут падать с ошибкой - проставьте им режим `Z`, например
 `./data:/var/lib:Z`
+
+Ответ: после нескольких безуспешных попыток запустить tick-стек из docker-compose файла склонированного репозитория, было принято решение
+ поднять новую виртуальную машину на Yandex Cloud (хотелось исключить возможное влияние архитектуры ARM64) и запустить стек на ней.
+Внешний IP адрес машины на момент работы (прерываемая ВМ): 178.154.198.247
+Таким образом сервис запустился и вот скриншот страницы http://178.154.198.247:8888
+
+![Screen01](https://github.com/MrVanG0gh/Netology_monitoring_01/blob/main/Screens/Screen01.png)
+
+
 #
 8. Перейдите в веб-интерфейс Chronograf (http://localhost:8888) и откройте вкладку Data explorer.
         
